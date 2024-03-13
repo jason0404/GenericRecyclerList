@@ -24,13 +24,6 @@
             app:layout_constraintBottom_toTopOf="@id/tv_count"
             tools:listitem="@layout/item_decoration" />
 
-        <TextView
-            android:id="@+id/tv_count"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="0"
-            app:layout_constraintBottom_toTopOf="@id/button" />
-
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"

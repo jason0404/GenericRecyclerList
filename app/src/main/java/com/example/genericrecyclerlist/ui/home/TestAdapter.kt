@@ -7,22 +7,20 @@ import com.example.genericrecyclerlist.databinding.ItemDecorationBinding
 import com.example.genericrecyclerlist.databinding.ItemFooterBinding
 import com.example.genericrecyclerlist.databinding.ItemFundsBinding
 import com.example.genericrecyclerlist.ui.recycler.adapter.BaseAdapter
+import com.example.genericrecyclerlist.ui.recycler.adapter.BaseDataType
 import com.example.genericrecyclerlist.ui.recycler.adapter.BaseViewHolder
-import com.example.genericrecyclerlist.ui.recycler.adapter.DataType
 import java.lang.IllegalStateException
 
-class TestAdapter: BaseAdapter<DataType, BaseViewHolder<DataType, *>>() {
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(list: List<DataType>) {
+class TestAdapter: BaseAdapter<BaseDataType, BaseViewHolder<BaseDataType, *>>() {
+    
+    fun submitList(list: List<BaseDataType>) {
         super.setItem(list)
-        notifyDataSetChanged()
     }
 
     override fun createViewHolder(
         binding: ViewDataBinding,
         layoutId: Int
-    ): BaseViewHolder<DataType, *> {
+    ): BaseViewHolder<BaseDataType, *> {
         return when(binding) {
             is ItemDecorationBinding -> ItemDecorationViewHolder(binding)
             is ItemFundsBinding -> ItemFundsViewHolder(binding)
@@ -33,42 +31,57 @@ class TestAdapter: BaseAdapter<DataType, BaseViewHolder<DataType, *>>() {
 
     override fun getLayoutId(position: Int): Int {
         return when(getItem(position)) {
-            is DataType.Type1 -> R.layout.item_decoration
-            is DataType.Type2 -> R.layout.item_funds
-            is DataType.Type3 -> R.layout.item_footer
+            is BaseDataType.Type1 -> R.layout.item_decoration
+            is BaseDataType.Type2 -> R.layout.item_funds
+            is BaseDataType.Type3 -> R.layout.item_footer
+        }
+    }
+
+    val bool: Boolean = false
+
+    override fun areContentTheSame(oldItem: BaseDataType, newItem: BaseDataType): Boolean {
+        bool.not()
+        return when {
+            oldItem is BaseDataType.Type1 && newItem is BaseDataType.Type1 -> return oldItem.name == newItem.name
+            oldItem is BaseDataType.Type2 && newItem is BaseDataType.Type2 -> return oldItem.age == newItem.age
+            oldItem is BaseDataType.Type3 && newItem is BaseDataType.Type3 -> return oldItem.isMale == newItem.isMale
+            else -> false
+        }
+    }
+
+    override fun areItemTheSame(oldItem: BaseDataType, newItem: BaseDataType): Boolean {
+        return when {
+            oldItem is BaseDataType.Type1 && newItem is BaseDataType.Type1 -> oldItem == newItem
+            oldItem is BaseDataType.Type2 && newItem is BaseDataType.Type2 -> oldItem == newItem
+            oldItem is BaseDataType.Type3 && newItem is BaseDataType.Type3 -> oldItem == newItem
+            else -> false
         }
     }
 }
 
 class ItemDecorationViewHolder(
     binding: ItemDecorationBinding
-): BaseViewHolder<DataType, ItemDecorationBinding>(binding) {
-    override fun applyItem(item: DataType) {
-        when(item) {
-            is DataType.Type1 -> binding.tvTitle.text = item.name
-                else -> throw IllegalStateException("wrong apply item")
-        }
+): BaseViewHolder<BaseDataType , ItemDecorationBinding>(binding) {
+    override fun applyItem(item: BaseDataType) {
+        val `data` = item as BaseDataType.Type1
+        binding.tvTitle.text = data.name
     }
 }
 
 class ItemFundsViewHolder(
     binding: ItemFundsBinding
-): BaseViewHolder<DataType, ItemFundsBinding>(binding) {
-    override fun applyItem(item: DataType) {
-        when(item) {
-            is DataType.Type2 -> binding.tvTitle.text = item.age.toString()
-            else -> throw IllegalStateException("wrong apply item")
-        }
+): BaseViewHolder<BaseDataType, ItemFundsBinding>(binding) {
+    override fun applyItem(item: BaseDataType) {
+        val `data` = item as BaseDataType.Type2
+        binding.tvTitle.text = data.age.toString()
     }
 }
 
 class ItemFooterViewHolder(
     binding: ItemFooterBinding
-): BaseViewHolder<DataType, ItemFooterBinding>(binding) {
-    override fun applyItem(item: DataType) {
-        when(item) {
-            is DataType.Type3 -> binding.tvTitle.text = item.isMale.toString()
-            else -> throw IllegalStateException("wrong apply item")
-        }
+): BaseViewHolder<BaseDataType, ItemFooterBinding>(binding) {
+    override fun applyItem(item: BaseDataType) {
+        val `data` = item as BaseDataType.Type3
+        binding.tvTitle.text = data.isMale.toString()
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTextViewStyle">
+        <attr name="highlightedColor" format="color"/>
+        <attr name="isUnderlined" format="boolean"/>
+        <attr name="selectedTextRes" format="string" />
+    </declare-styleable>
+</resources>

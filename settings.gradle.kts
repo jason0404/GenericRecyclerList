@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GenericRecyclerList"
 include(":app")
- 
+include(":jasonfirstlibrary")

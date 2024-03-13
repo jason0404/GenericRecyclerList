@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "92028336466",
+    "project_id": "genericrecyclerlist",
+    "storage_bucket": "genericrecyclerlist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92028336466:android:9f6a6efb0e8b30e94a228b",
+        "android_client_info": {
+          "package_name": "com.example.genericrecyclerlist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa0IEf5nq7dSWp5mrXiYXTI4GTQ-uMeGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

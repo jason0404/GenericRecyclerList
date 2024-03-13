@@ -13,6 +13,7 @@ import com.example.genericrecyclerlist.databinding.ActivityMainBinding
 import com.example.genericrecyclerlist.ui.Utils
 import com.example.genericrecyclerlist.ui.dashboard.DashboardFragment
 import com.example.genericrecyclerlist.ui.home.HomeFragment
+import com.marketo.Marketo
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +24,8 @@ private var fragmentManager: FragmentManager? = null
         super.onCreate(savedInstanceState)
 
      binding = ActivityMainBinding.inflate(layoutInflater)
+        val marketoSdk = Marketo.getInstance(applicationContext)
+        marketoSdk.initializeSDK("native", "310-HII-890", "")
      setContentView(binding.root)
 
         Utils.startTimer()
